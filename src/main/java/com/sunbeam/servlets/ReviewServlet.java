@@ -105,8 +105,10 @@ public class ReviewServlet extends HttpServlet {
         }
 
         out.println("</table>");
-        out.println("<a href='reviews'>Add Review</a>");
-        out.println("<a href='reviews'>Logout</a>");
+        out.println("<a href='reviews'>Add Review</a> <tr><tr> ");
+        out.println("<div style='position: absolute; top: 10px; right: 10px;'>");
+        out.println("<a href='logout'>Logout</a>");
+        out.println("</div>");        
         out.println("</body>");
         out.println("</html>");
     }
