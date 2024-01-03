@@ -19,7 +19,7 @@ import com.sunbeam.pojos.User;
 
 
 @WebServlet("/register")
-public class RegisterServlet extends HttpServlet {
+public class AddUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String fname = req.getParameter("fname");

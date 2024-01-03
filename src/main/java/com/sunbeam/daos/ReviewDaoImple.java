@@ -33,7 +33,8 @@ public class ReviewDaoImple extends Dao implements ReviewDao{
 		String sqlUpdate = "UPDATE Reviews SET rating = ?, review = ?, modified=NOW() where id=?";
 		stmtUpdate = con.prepareStatement(sqlUpdate);
 
-		String sqlFindReviewById = "SELECT * from Reviews WHERE id = ?";
+//		String sqlFindReviewById = "SELECT * from Reviews WHERE id = ?";
+		String sqlFindReviewById = "SELECT Reviews.*, Movies.title AS movie_name FROM Reviews JOIN Movies ON Reviews.movie_id = Movies.id WHERE Reviews.id = ?";
 		stmtFindReviewById = con.prepareStatement(sqlFindReviewById);
 
 //		String sqlFindReviewsById = "SELECT * from Reviews WHERE user_id = ?";
@@ -162,6 +163,28 @@ public class ReviewDaoImple extends Dao implements ReviewDao{
 		return count;
 	}
 
+//	public Optional<Review> findReviewById(int uid) throws Exception {
+//		stmtFindReviewById.setInt(1, uid);
+//		try (ResultSet rs = stmtFindReviewById.executeQuery()) {
+//			while (rs.next()) {
+//				int id = rs.getInt("id");
+//				String review = rs.getString("review");
+//				int rating = rs.getInt("rating");
+//				int userId = rs.getInt("user_id");
+//				int movieId = rs.getInt("movie_id");
+//				Timestamp modified = rs.getTimestamp("modified");
+//				
+//				Review r = new Review(id, movieId, review, rating, userId, modified);
+////				return r;
+//				
+//				return Optional.of(r);
+//
+//			}
+//		} // rs.close()
+//		return Optional.empty();
+//	}
+	
+	
 	public Optional<Review> findReviewById(int uid) throws Exception {
 		stmtFindReviewById.setInt(1, uid);
 		try (ResultSet rs = stmtFindReviewById.executeQuery()) {
@@ -170,14 +193,14 @@ public class ReviewDaoImple extends Dao implements ReviewDao{
 				String review = rs.getString("review");
 				int rating = rs.getInt("rating");
 				int userId = rs.getInt("user_id");
-				int movieId = rs.getInt("movie_id");
+				String movie = rs.getString("movie_name");
 				Timestamp modified = rs.getTimestamp("modified");
 				
-				Review r = new Review(id, movieId, review, rating, userId, modified);
+				Review r = new Review(id, movie, review, rating, userId, modified);
 //				return r;
 				
 				return Optional.of(r);
-
+				
 			}
 		} // rs.close()
 		return Optional.empty();

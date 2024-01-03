@@ -1,0 +1,90 @@
+CREATE TABLE Users (
+  id INT NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  mobile VARCHAR(255) NOT NULL,
+  birth DATE NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE Shares (
+  user_id INT NOT NULL,
+  review_id INT NOT NULL,
+  FOREIGN KEY (review_id) REFERENCES Reviews(id),
+  FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+
+CREATE TABLE Reviews (
+  id INT NOT NULL AUTO_INCREMENT,
+  review TEXT NOT NULL,
+  rating INT NOT NULL,
+  user_id INT NOT NULL,
+  movie_id INT NOT NULL,
+  modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES Users(id),
+  FOREIGN KEY (movie_id) REFERENCES Movies(id)
+);
+
+CREATE TABLE Movies (
+  id INT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  release_date DATE,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO Users (first_name, last_name, email, password, mobile, birth)
+VALUES
+('Meet', 'Vasani', 'm@email.com', '123', '1234567890', '2001-07-23'),
+('Jayesh', 'Suthar', 'j@email.com', '456', '9876543210', '2001-04-01');
+
+
+INSERT INTO Movies (title, release_date)
+VALUES
+  ('Avatar', '2009-02-21'),
+  ('Titanic', '1997-08-09'),
+  ('Frozen', '2013-07-24'),
+  ('The Lord of the Rings: The Fellowship of the Ring', '2001-12-19'),
+  ('Skyfall', '2012-12-26'),
+  ('Toy Story', '1995-11-22'),
+  ('Jurassic Park', '1993-06-11'),
+  ('Alice in Wonderland', '2010-03-05'),
+  ('Zootopia', '2016-04-11'),
+  ('The Dark Knight', '2008-07-18');
+
+
+INSERT INTO Reviews (review, rating, user_id, movie_id)
+VALUES
+  ('Avatar is a great movie!', 5, 1, 1),
+  ('Titanic is a classic movie.', 4, 2, 2),
+  ('Frozen is a fun and heartwarming movie.', 3, 2, 3),
+  ('The Lord of the Rings: The Fellowship of the Ring is an epic adventure movie. ', 2, 1, 4),
+  ('Skyfall is a great action movie', 1, 2, 5),
+  ('Toy Story is a fun and heartwarming movie.', 5, 2, 6),
+  ('Jurassic Park is a classic sci-fi thriller.', 4, 2, 7),
+  ('Alice in Wonderland is a visually stunning movie.', 3, 1, 8),
+  ('Zootopia is a fun and heartwarming movie.', 2, 1, 9),
+  ('The Dark Knight is a great superhero movie.', 1, 2, 10);
+
+ALTER TABLE Shares
+  ADD CONSTRAINT fk_shares_user_id
+  FOREIGN KEY (user_id) REFERENCES Users(id)
+  ON DELETE CASCADE;
+  
+-- Select data from Users table
+SELECT * FROM Users;
+
+-- Select data from Movies table
+SELECT * FROM Movies;
+
+-- Select data from Reviews table
+SELECT * FROM Reviews;
+
+-- Select data from Shares table
+SELECT * FROM Shares;
+
+
+

@@ -101,6 +101,11 @@ public class ReviewServlet extends HttpServlet {
         out.println("<a href='reviews?viewType=myReviews'>My Reviews</a> | ");
         out.println("<a href='reviews?viewType=sharedReviews'>Shared Reviews</a><br/>");
 
+        String msg = req.getParameter("message");
+        if (msg != null)
+            out.printf("<br/><br/>" + msg);
+
+        
         // Table heading
         out.println("<h1>Reviews</h1>");
         out.println("<table>");
@@ -119,7 +124,10 @@ public class ReviewServlet extends HttpServlet {
             out.printf("<td>%s</td>", r.getMovieName());
             out.printf("<td>%s</td>", r.getRating());
             out.printf("<td>%s</td>", r.getReview());
-            out.printf("<td></td>");
+            out.printf("<td>"
+            		+"<a href='revedit?id=%d'><img width='28' height='28' src='edit.png' alt='Edit'/></a>"
+            		+ "<a href='revdel?id=%d'><img width='28' height='28' src='delete.png' alt='Delete'/></a>"
+            		+ "</td>",r.getId(),r.getId());
             out.printf("</tr>");
         }
 
