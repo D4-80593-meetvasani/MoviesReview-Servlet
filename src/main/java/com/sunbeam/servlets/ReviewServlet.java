@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,7 +80,21 @@ public class ReviewServlet extends HttpServlet {
         out.println("</style>");
         out.println("</head>");
         out.println("<body>");
-        out.println("Hello, User! <hr/>");
+//        out.println("Hello, User! <hr/>");
+        
+		
+		String uname = "";
+		Cookie[] arr = req.getCookies();
+		if(arr != null) {
+			for (Cookie c : arr) {
+				if(c.getName().equals("username")) {
+					uname = c.getValue();
+					break;
+				}
+			}
+		}
+		
+		out.printf("Hello, User - %s! <hr/>\n", uname);
 
         // Links to different views
         out.println("<a href='reviews'>All Reviews</a> | ");
