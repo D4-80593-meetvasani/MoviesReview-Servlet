@@ -93,7 +93,7 @@ public class AddReviewServlet extends HttpServlet {
 
         Review newReview = new Review();
         newReview.setMovieId(Integer.parseInt(movieId)); 
-        newReview.setRating(rating);dtfghnm
+        newReview.setRating(rating);
         newReview.setReview(reviewText);
         newReview.setUserId(currentUser.getId()); 
 
