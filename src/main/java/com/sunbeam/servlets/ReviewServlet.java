@@ -103,7 +103,7 @@ public class ReviewServlet extends HttpServlet {
 
         String msg = req.getParameter("message");
         if (msg != null)
-            out.printf("<br/><br/>" + msg);
+            out.printf("<br/>" + msg);
 
         
         // Table heading
@@ -131,8 +131,8 @@ public class ReviewServlet extends HttpServlet {
             out.printf("</tr>");
         }
 
-        out.println("</table>");
-        out.println("<a href='reviews'>Add Review</a> <tr><tr> ");
+        out.println("</table><br/>");
+        out.println("<a href='addreview'>Add Review</a> <tr><tr> ");
         out.println("<div style='position: absolute; top: 10px; right: 10px;'>");
         out.println("<a href='logout'>Logout</a>");
         out.println("</div>");        

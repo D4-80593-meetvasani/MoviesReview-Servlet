@@ -11,7 +11,7 @@ public class MovieDaoImple extends Dao implements MovieDao{
 	private PreparedStatement stmtFindAll;
 
 
-	protected MovieDaoImple() throws Exception{
+	public MovieDaoImple() throws Exception{
 
 		String sqlFindAll = "SELECT * from Movies";
 		stmtFindAll = con.prepareStatement(sqlFindAll);
