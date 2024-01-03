@@ -10,10 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sunbeam.daos.ReviewDao;
 import com.sunbeam.daos.ReviewDaoImple;
 import com.sunbeam.pojos.Review;
+import com.sunbeam.pojos.User;
 @WebServlet("/reviews")
 public class ReviewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -30,18 +32,20 @@ public class ReviewServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String viewType = req.getParameter("viewType"); 
+       
+        HttpSession session = req.getSession();
+        User u = null;
+        u = (User) session.getAttribute("curUser");
 
         // business logic
         List<Review> list = new ArrayList<>();
         try (ReviewDao dao = new ReviewDaoImple()) {
             if ("myReviews".equals(viewType)) {
                 // Load user-specific reviews
-                int userId = getUserIdFromSessionOrRequest(req);
-                list = dao.findReviewsById(userId);
+                list = dao.findReviewsById(u.getId());
             } else if ("sharedReviews".equals(viewType)) {
                 // Load shared reviews
-                int userId = getUserIdFromSessionOrRequest(req);
-                list = dao.findSharedReviews(userId);
+                list = dao.findSharedReviews(u.getId());
             } else {
                 // Load all reviews by default
                 list = dao.findAll();
@@ -113,8 +117,5 @@ public class ReviewServlet extends HttpServlet {
         out.println("</html>");
     }
 
-    private int getUserIdFromSessionOrRequest(HttpServletRequest req) {
-        // Implement your logic to get the user ID from the session or request
-        return 1; 
-    }
+
 }

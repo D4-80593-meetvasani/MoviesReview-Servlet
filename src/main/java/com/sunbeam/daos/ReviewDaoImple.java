@@ -36,13 +36,19 @@ public class ReviewDaoImple extends Dao implements ReviewDao{
 		String sqlFindReviewById = "SELECT * from Reviews WHERE id = ?";
 		stmtFindReviewById = con.prepareStatement(sqlFindReviewById);
 
-		String sqlFindReviewsById = "SELECT * from Reviews WHERE user_id = ?";
+//		String sqlFindReviewsById = "SELECT * from Reviews WHERE user_id = ?";
+		String sqlFindReviewsById = "SELECT Reviews.*, Movies.title AS movie_name FROM Reviews JOIN Movies ON Reviews.movie_id = Movies.id where user_id=?";
 		stmtFindReviewsById = con.prepareStatement(sqlFindReviewsById);
 
 		String sqlShareReview = "INSERT INTO Shares (review_id, user_id) VALUES (?, ?)";
 		stmtShareReview = con.prepareStatement(sqlShareReview);
 
-		String sqlDisplayShareReview = "SELECT Reviews.* FROM Reviews JOIN Shares ON Reviews.id = Shares.review_id WHERE Shares.user_id = ?";
+//		String sqlDisplayShareReview = "SELECT Reviews.* FROM Reviews JOIN Shares ON Reviews.id = Shares.review_id WHERE Shares.user_id = ?";
+		String sqlDisplayShareReview = "SELECT Reviews.*, Movies.title AS movie_name\r\n"
+				+ "FROM Reviews\r\n"
+				+ "JOIN Shares ON Reviews.id = Shares.review_id\r\n"
+				+ "JOIN Movies ON Reviews.movie_id = Movies.id\r\n"
+				+ "WHERE Shares.user_id = ?";
 		stmtDisplayShareReview = con.prepareStatement(sqlDisplayShareReview);
 
 		String sqlDelete = "DELETE from Reviews where id=?";
@@ -99,19 +105,38 @@ public class ReviewDaoImple extends Dao implements ReviewDao{
 	    return list;
 	}
 
+//	public List<Review> findSharedReviews(int uid) throws Exception {
+//		List<Review> list = new ArrayList<Review>();
+//		stmtDisplayShareReview.setInt(1, uid);
+//		try (ResultSet rs = stmtDisplayShareReview.executeQuery()) {
+//			while (rs.next()) {
+//				int id = rs.getInt("id");
+//				int mid = rs.getInt("movie_id");
+//				String text = rs.getString("review");
+//				int rating = rs.getInt("rating");
+//				int userId = rs.getInt("user_id");
+//				Timestamp tStmp = rs.getTimestamp("modified");
+//
+//				Review r = new Review(id, mid, text, rating, userId, tStmp);
+//				list.add(r);
+//			}
+//		} // rs.close()
+//		return list;
+//	}
+	
 	public List<Review> findSharedReviews(int uid) throws Exception {
 		List<Review> list = new ArrayList<Review>();
 		stmtDisplayShareReview.setInt(1, uid);
 		try (ResultSet rs = stmtDisplayShareReview.executeQuery()) {
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				int mid = rs.getInt("movie_id");
+				String movie = rs.getString("movie_name");
 				String text = rs.getString("review");
 				int rating = rs.getInt("rating");
 				int userId = rs.getInt("user_id");
 				Timestamp tStmp = rs.getTimestamp("modified");
-
-				Review r = new Review(id, mid, text, rating, userId, tStmp);
+				
+				Review r = new Review(id, movie, text, rating, userId, tStmp);
 				list.add(r);
 			}
 		} // rs.close()
@@ -157,6 +182,26 @@ public class ReviewDaoImple extends Dao implements ReviewDao{
 		} // rs.close()
 		return Optional.empty();
 	}
+//	public Optional<Review> findReviewById(int uid) throws Exception {
+//		stmtFindReviewById.setInt(1, uid);
+//		try (ResultSet rs = stmtFindReviewById.executeQuery()) {
+//			while (rs.next()) {
+//				int id = rs.getInt("id");
+//				String review = rs.getString("review");
+//				int rating = rs.getInt("rating");
+//				int userId = rs.getInt("user_id");
+//				String movie = rs.getString("movie_name");
+//				Timestamp modified = rs.getTimestamp("modified");
+//				
+//				Review r = new Review(id, movie, review, rating, userId, modified);
+////				return r;
+//				
+//				return Optional.of(r);
+//				
+//			}
+//		} // rs.close()
+//		return Optional.empty();
+//	}
 
 	public List<Review> findReviewsById(int uid) throws Exception {
 		List<Review> list = new ArrayList<Review>();
@@ -166,11 +211,11 @@ public class ReviewDaoImple extends Dao implements ReviewDao{
 				int id = rs.getInt("id");
 				String review = rs.getString("review");
 				int userId = rs.getInt("user_id");
-				int movieId = rs.getInt("movie_id");
+				String movie = rs.getString("movie_name");
 				int rating = rs.getInt("rating");
 				Timestamp modified = rs.getTimestamp("modified");
 
-				Review r = new Review(id, movieId, review, rating, userId, modified);
+				Review r = new Review(id, movie, review, rating, userId, modified);
 				list.add(r);
 
 			}

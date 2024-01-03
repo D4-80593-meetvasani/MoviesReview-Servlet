@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.sunbeam.daos.UserDao;
 import com.sunbeam.daos.UserDaoImple;
@@ -60,8 +62,12 @@ public class LoginServlet extends HttpServlet {
         out.println("</style>");
         out.println("</head>");
         out.println("<body>");
-        if (success)
-            resp.sendRedirect("reviews"); // go to next servlet
+        if (success) {
+        	HttpSession session = req.getSession();
+        	session.setAttribute("curUser", user);
+        	resp.sendRedirect("reviews?viewType=all");        	
+        }
+        	
         else {
             out.println("<h1>Invalid email or password.</h1>");
             out.println("<br/><br/>");
