@@ -10,7 +10,22 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+
+  <filter>
+  	<filter-name>Security</filter-name>
+  	<filter-class>com.sunbeam.filters.SecurityFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>Security</filter-name>
+  	<url-pattern>/reviews</url-pattern>
+  	<url-pattern>/addreview</url-pattern>
+  	<url-pattern>/logout</url-pattern>
+  	<url-pattern>/revedit</url-pattern>
+  	<url-pattern>/revdel</url-pattern>
+  	<url-pattern>/reviewshare</url-pattern>
+  </filter-mapping>
   
+
     <!-- application init param i.e. app settings/config -->
   <context-param>
   	<param-name>appTitle</param-name>
