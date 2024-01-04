@@ -130,7 +130,8 @@ public class ReviewServlet extends HttpServlet {
             out.printf("<td>"
             		+"<a href='revedit?id=%d'><img width='28' height='28' src='edit.png' alt='Edit'/></a>"
             		+ "<a href='revdel?id=%d'><img width='28' height='28' src='delete.png' alt='Delete'/></a>"
-            		+ "</td>",r.getId(),r.getId());
+            		+ "<a href='reviewshare?id=%d'><img width='28' height='28' src='share.png' alt='Share'/></a>"
+            		+ "</td>",r.getId(),r.getId(),r.getId());
             out.printf("</tr>");
         }
 

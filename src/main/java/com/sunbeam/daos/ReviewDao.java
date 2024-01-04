@@ -13,5 +13,7 @@ public interface ReviewDao extends AutoCloseable{
 	public Optional<Review> findReviewById(int uid) throws Exception;
 	public List<Review> findReviewsById(int uid) throws Exception;
 	public int delete(int id) throws Exception;
+	public int shareReview(int reviewId, List<Integer> sharedUserIds) throws Exception;
+	public int shareReview(int reviewId, int userId) throws Exception;
 	
 }
