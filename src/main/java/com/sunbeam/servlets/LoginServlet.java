@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -63,6 +64,10 @@ public class LoginServlet extends HttpServlet {
         out.println("</style>");
         out.println("</head>");
         out.println("<body>");
+		ServletContext app = req.getServletContext();
+		String title = app.getInitParameter("appTitle");
+		out.printf("<h1>%s</h1>\n", title);
+		
         if (success) {
         	
 			String uname = user.getFirstName() + "_" + user.getLastName();

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,6 +63,10 @@ public class AddReviewServlet extends HttpServlet {
 		out.println("</style>");
 		out.println("</head>");
 		out.println("<body>");
+		ServletContext app = req.getServletContext();
+		String title = app.getInitParameter("appTitle");
+		out.printf("<h1>%s</h1>\n", title);
+		
 		out.println("<form method='post' action='addreview'>");
 
 		// Movie dropdown

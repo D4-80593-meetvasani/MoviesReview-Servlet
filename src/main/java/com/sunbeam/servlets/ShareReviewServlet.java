@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -98,6 +99,12 @@ public class ShareReviewServlet extends HttpServlet{
         out.println("</style>");
         out.println("</head>");
         out.println("<body>");
+        
+		ServletContext  app = req.getServletContext();
+		String title = app.getInitParameter("appTitle");
+		out.printf("<h1>%s</h1>\n", title);
+		
+        
         out.println("<form method='post' action='reviewshare'>");
 		out.printf("Review Id: <input type='text' name='reviewid' value='%d' readonly/>", reviewId);
 		out.println("<select name='userid'>");

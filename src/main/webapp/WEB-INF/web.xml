@@ -9,4 +9,29 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  
+    <!-- application init param i.e. app settings/config -->
+  <context-param>
+  	<param-name>appTitle</param-name>
+  	<param-value>Movie Review System</param-value>
+  </context-param>
+  
+  <context-param>
+  	<param-name>DB_DRIVER</param-name>
+  	<param-value>com.mysql.cj.jdbc.Driver</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>DB_URL</param-name>
+  	<param-value>jdbc:mysql://localhost:3306/pune</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>DB_USER</param-name>
+  	<param-value>vasani</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>DB_PASSWORD</param-name>
+  	<param-value>vasani</param-value>
+  </context-param>
+  
 </web-app>
