@@ -18,7 +18,9 @@ public class UserDaoImple extends Dao implements UserDao{
 	private PreparedStatement stmtFindAll;
 
 	public UserDaoImple() throws Exception {
-		String sqlSave = "INSERT INTO Users VALUES(default, ?, ?, ?, ?, ?,?)";
+//		String sqlSave = "INSERT INTO Users VALUES(default, ?, ?, ?, ?, ?,?)";
+		String sqlSave = "INSERT INTO Users (first_name, last_name, email, password ,mobile, birth) VALUES (?, ?, ?, ?, ?, ?)";
+		
 		stmtSave = con.prepareStatement(sqlSave);
 
 		String sqlFindByEmail = "SELECT * FROM Users where email=?";

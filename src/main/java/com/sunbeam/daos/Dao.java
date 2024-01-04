@@ -13,11 +13,11 @@ public class Dao implements AutoCloseable {
 	
 	@Override
 	public void close() {
-		try {
-			if (con != null)
-				con.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			if (con != null)
+//				con.close();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 }

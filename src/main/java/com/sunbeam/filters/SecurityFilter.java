@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 
 import com.sunbeam.pojos.User;
 
-//@WebFilter({"/candlist", "/vote", "/logout", "/result", "/candedit", "/canddel", "/announce"})
 public class SecurityFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
