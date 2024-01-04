@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -74,17 +75,21 @@ public class ReviewDeleteServlet extends HttpServlet{
 			
 			cnt = dao.delete(id);
 			
-			 resp.getWriter().println("Review deleted: " + cnt);
+//			 resp.getWriter().println("Review deleted: " + cnt);
 		}catch(Exception e) {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
 		
-		//resp.sendRedirect("result");
-		RequestDispatcher rd = req.getRequestDispatcher("reviews");
-		rd.forward(req, resp);
-
+		//resp.sendRedirect("result");  wont work for ser attr or get attr
 		
+//		RequestDispatcher rd = req.getRequestDispatcher("reviews");
+//		rd.forward(req, resp);
+
+		// forward using ctx req dispatcher
+		ServletContext ctx = req.getServletContext();
+		RequestDispatcher rd = ctx.getRequestDispatcher("/reviews"); //  / is compulsary
+		rd.forward(req, resp);
 	}
 	
 	

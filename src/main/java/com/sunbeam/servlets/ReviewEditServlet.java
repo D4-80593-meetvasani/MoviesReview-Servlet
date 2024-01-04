@@ -161,9 +161,17 @@ public class ReviewEditServlet extends HttpServlet {
 		}
 
 		// forward req to result servlet
-		RequestDispatcher rd = req.getRequestDispatcher("reviews");
-		rd.forward(req, resp);
+		
+		
+//		RequestDispatcher rd = req.getRequestDispatcher("reviews");
+//		rd.forward(req, resp);
 
+		
+//		 forward using ctx req dispatcher
+		
+		ServletContext ctx = req.getServletContext();
+		RequestDispatcher rd = ctx.getRequestDispatcher("/reviews"); // / is compulsary
+		rd.forward(req, resp);
 	}
 
 }
