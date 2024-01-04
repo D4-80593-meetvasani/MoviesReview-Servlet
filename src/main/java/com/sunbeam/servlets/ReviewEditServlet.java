@@ -56,7 +56,12 @@ public class ReviewEditServlet extends HttpServlet {
 
 		if (!isReviewBelongsToUser(id, currentUser.getId())) {
 			String message = "You can only edit your own reviews!";
-			resp.sendRedirect("reviews?message=" + message);
+//			resp.sendRedirect("reviews?message=" + message);
+			req.setAttribute( "message" , message);
+			
+			RequestDispatcher rd = req.getRequestDispatcher("reviews");
+			rd.forward(req, resp);
+			
 			return;
 		}
 
@@ -137,6 +142,9 @@ public class ReviewEditServlet extends HttpServlet {
 
 		Review r = new Review(Integer.parseInt(revId), movie_name, review, Integer.parseInt(rating),
 				Integer.parseInt(user_id), null);
+		
+		
+		
 		int cnt = 0;
 		try (ReviewDao dao = new ReviewDaoImple()) {
 			cnt = dao.update(r);

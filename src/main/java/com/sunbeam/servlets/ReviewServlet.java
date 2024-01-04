@@ -100,10 +100,13 @@ public class ReviewServlet extends HttpServlet {
         out.println("<a href='reviews'>All Reviews</a> | ");
         out.println("<a href='reviews?viewType=myReviews'>My Reviews</a> | ");
         out.println("<a href='reviews?viewType=sharedReviews'>Shared Reviews</a><br/>");
-
-        String msg = req.getParameter("message");
+//
+//        String msg = req.getParameter("message");
+//        if (msg != null)
+//            out.printf("<br/>" + msg);
+        String msg = (String) req.getAttribute("message");
         if (msg != null)
-            out.printf("<br/>" + msg);
+        	out.printf("<br/>" + msg);
 
         
         // Table heading

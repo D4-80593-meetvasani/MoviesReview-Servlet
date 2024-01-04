@@ -59,7 +59,10 @@ public class ReviewDeleteServlet extends HttpServlet{
         	System.out.println("You can only edit your own reviews!");
 //        	req.setAttribute("message", "You can only delete your own reviews! ");
         	String message = "You can only delete your own reviews!";
-        	resp.sendRedirect("reviews?message=" + message);
+//        	resp.sendRedirect("reviews?message=" + message);
+			req.setAttribute( "message" , message);
+			RequestDispatcher rd = req.getRequestDispatcher("reviews");
+			rd.forward(req, resp);
 
             return;
         }
